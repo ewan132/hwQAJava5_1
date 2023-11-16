@@ -1,19 +1,16 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class ServiceCalcTest {
 
-    @Test
-    public void dayWeek(){
+    @ParameterizedTest
+    @CsvFileSource(files = "src/test/resources/weekend.csv")
+    public void dayWeek(int income, int expenses, int threshold, int expected){
         ServiceCalc calc = new ServiceCalc();
-
-        int income = 10_000; // прибыль
-        int expenses = 3_000; // еж.месячные траты
-        int threshold = 20_000;
-
         int actual = calc.calculate(income, expenses, threshold);
-
-        int expected = 3;
         Assertions.assertEquals(expected, actual);
 
     }
